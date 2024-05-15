@@ -2,24 +2,34 @@ import React from "react";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
+import TodoList from "./todoList";
+import TodoInput from "./todoInput";
+import TodoItem from "./todoItem";
+import { useState } from "react";
 
 //create your first component
-const Home = () => {
+const Home = () => { 
+	const [strList, setstrList] = useState([]);
+
+	const addTodo = (todoName) => {
+		console.log("home");
+		setstrList([...strList, todoName])
+		console.log(strList)
+	} 
+
+	const removeTodo = (todoName) => {
+        const index = strList.indexOf(todoName);
+		if(index > -1){
+			strList.splice(index, 1);
+			setstrList([...strList]);
+		}
+    }
+
 	return (
-		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
+		<>
+			<TodoInput onAdd={addTodo} />
+			<TodoList list={strList} onRemove={removeTodo} />
+		</>
 	);
 };
 
