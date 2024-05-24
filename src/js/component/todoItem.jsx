@@ -2,11 +2,11 @@ import React from "react";
 
 function TodoItem(props){
   const onRemoveClick= () => {
-    props.onRemove(props.str);
+    props.onRemove(props.index);
   }
   
     return(
-        <li>{props.str} <i className="fa fa-times" onClick={onRemoveClick}></i></li>
+        <li className="d-flex justify-content-between list-group-item">{props.str} <i className="icon__x" onClick={onRemoveClick}>X</i></li>
     )
 }
 
