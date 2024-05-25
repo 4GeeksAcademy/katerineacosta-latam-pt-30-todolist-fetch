@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //include images into your bundle
 import TodoList from "./todoList";
@@ -9,18 +9,45 @@ import { useState } from "react";
 const Home = () => { 
 	const [strList, setStrList] = useState([]);
 
-	const addTodo = (todoName) => {
-		console.log("home");
+	useEffect(()=>{
+		getAllTodos();
+	}, []);
+
+	const getAllTodos = async ()=>{
+		res = await fetch('https://playground.4geeks.com/todo/usrs/katy', { method:'GET' });
+		const data = await res.json();
+		setstrList(data.todos)		
+	};
+
+	const addTodo = async (todoName) => {
 		if(todoName.trim() === ""){
 			return;
 		}
-		setStrList([...strList, todoName])
-		console.log(strList)
-	} 
+		const body = JSON.stringify({
+			"label": todoName,
+			"is_done": false
+		});
+		const result = await fetch('https://playground.4geeks.com/todo/todos/katy', {
+			method: 'POST',
+			body: body,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+		});
+		getAllTodos();
+	};
 
-	const removeTodo = (index) => {
-		setStrList(strList.filter((v, i)=> i != index) );
-    }
+	const removeTodo = async (todoId) => {
+		const result = await fetch(`https://playground.4geeks.com/todo/todos/${todoId}`, {method:'DELETE'});
+		getAllTodos();
+    };
+
+	const clearTodos = async () => {
+		for(let el of strList){
+			await fetch(`https://playground.4geeks.com/todo/todos/${el.id}`, {method:'DELETE'});
+		}
+		getAllTodos();
+	};
 
 	return (
 		<>
@@ -33,6 +60,9 @@ const Home = () => {
 						<TodoInput onAdd={addTodo} />
 						{ strList.length > 0 && <TodoList list={strList} onRemove={removeTodo} /> }
 						{ strList.length == 0 && <p className="text-danger text-center">No hay tareas, por favor agrega alguna</p> }
+					</div>
+					<div>
+						<button type="button" className="btn btn-primary" onClick={clearTodos} >Limpiar</button>
 					</div>
 				</div>
 			</div>

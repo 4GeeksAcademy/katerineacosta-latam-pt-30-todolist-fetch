@@ -4,7 +4,7 @@ function TodoItem(props){
   const [icon, setIcon] = useState(false)
 
   const onRemoveClick= () => {
-    props.onRemove(props.index);
+    props.onRemove(props.todo.id);
   }
   
     return(
