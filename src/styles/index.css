@@ -3,8 +3,13 @@ body{
 }
 #app{
     display: flex;
-    justify-content: center;
-    margin-top: 2rem;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1{
+    font-weight: 100;
+    color: #ebd9da;
 }
 .container__todo{
     display: flex;
@@ -12,6 +17,22 @@ body{
     align-items: center;
     background-color: white;
     width: max-content;
+}
+.list__input{
+    border: none;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+
+input:focus,
+input.form-control:focus {
+    outline: none;
+}
+
+
+.list__counter{
+    background: white;
+    border-top: 1px solid #dfdfdf;
 }
 
 i{

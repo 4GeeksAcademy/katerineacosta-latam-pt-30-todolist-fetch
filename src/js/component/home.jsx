@@ -1,10 +1,8 @@
 import React from "react";
 
 //include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
 import TodoList from "./todoList";
 import TodoInput from "./todoInput";
-import TodoItem from "./todoItem";
 import { useState } from "react";
 
 //create your first component
@@ -27,13 +25,17 @@ const Home = () => {
 
 	return (
 		<>
-		<div className="container__todo">
 			<div>
-				<h1>TODO</h1>
+				<h1>todos</h1>
 			</div>
-			<TodoInput onAdd={addTodo} />
-			<TodoList list={strList} onRemove={removeTodo} />
-		</div>
+			<div className="container">
+				<div className="row justify-content-center">
+					<div className="col-4 d-flex flex-column">
+						<TodoInput onAdd={addTodo} />
+						<TodoList list={strList} onRemove={removeTodo} />
+					</div>
+				</div>
+			</div>
 		</>
 	);
 };
