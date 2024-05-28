@@ -8,15 +8,43 @@ import { useState } from "react";
 //create your first component
 const Home = () => { 
 	const [strList, setStrList] = useState([]);
+	const [error, setError] = useState(null);
 
 	useEffect(()=>{
 		getAllTodos();
 	}, []);
 
 	const getAllTodos = async ()=>{
-		const res = await fetch('https://playground.4geeks.com/todo/users/kath', { method:'GET' });
-		const data = await res.json();
-		setstrList(data.todos)		
+		setError(null);
+		// try{
+		// 	const res = await fetch('https://playground.4geeks.com/todo/users/kaths', { method:'GET',  });
+		// 	const data = await res.json();
+		// 	if(res.status.toString()[0] != '2'){
+		// 		throw data;
+		// 	}
+		// 	setstrList(data.todos)		
+		// }catch (error){
+		// 	setstrList([]);
+		// 	console.log(error);
+		// 	setError(error.detail);
+		// }
+
+			const res = await fetch('https://playground.4geeks.com/todo/users/kath', { method:'GET' });
+			const data = await res.json();
+
+			// success
+			if(res.status.toString()[0] == '2'){
+				setStrList(data.todos);	
+			// user does not exists
+			}else if(res.status.toString()[0] == '4' && data.detail.includes("doesn't exist")){
+				createUser();
+				setStrList([]);
+			// other errors
+			}else{
+				setStrList([]);
+				console.log(error);
+				setError(error.detail);	
+			}
 	};
 
 	const addTodo = async (todoName) => {
@@ -49,6 +77,18 @@ const Home = () => {
 		getAllTodos();
 	};
 
+	const createUser = async ()=>{
+		const result = await fetch('https://playground.4geeks.com/todo/users/kath', {method:'POST'});
+		
+		/* success */
+		if( false ){
+
+		/* error */
+		}else{
+
+		}
+	};
+
 	return (
 		<>
 			<div>
@@ -60,12 +100,18 @@ const Home = () => {
 						<TodoInput onAdd={addTodo} />
 						{ strList.length > 0 && <TodoList list={strList} onRemove={removeTodo} /> }
 						{ strList.length == 0 && <p className="text-danger text-center">No hay tareas, por favor agrega alguna</p> }
-						<div>
-							<button type="button" className="btn btn-primary" onClick={clearTodos} >Limpiar</button>
+						<div className="d-grid">
+							<button type="button" className="btn list__btn mt-2 " onClick={clearTodos} >Borrar todo</button>
 						</div>
+						{ error && (<div class="alert alert-danger" role="alert">
+							{error}
+						</div>)
+						}
 					</div>
 					
 				</div>
+				
+				
 			</div>
 		</>
 	);

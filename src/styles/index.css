@@ -9,6 +9,7 @@ body{
 
 h1{
     font-weight: 100;
+    font-size: 5rem;
     color: #ebd9da;
     font-size: 5rem;
 }
@@ -34,4 +35,14 @@ i{
     font-style: normal;
     cursor: pointer;
     color: #c19698;
+}
+
+.list__btn{
+    background: #c19698;
+    color: white;
+}
+
+.list__btn:hover{
+    background: #c19698d4;
+    color: white;
 }
