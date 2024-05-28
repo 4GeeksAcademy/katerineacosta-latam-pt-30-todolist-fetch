@@ -10,14 +10,9 @@ body{
 h1{
     font-weight: 100;
     color: #ebd9da;
+    font-size: 5rem;
 }
-.container__todo{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    width: max-content;
-}
+
 .list__input{
     border: none;
     border-bottom: 1px solid #dfdfdf;
@@ -37,4 +32,6 @@ input.form-control:focus {
 
 i{
     font-style: normal;
+    cursor: pointer;
+    color: #c19698;
 }
