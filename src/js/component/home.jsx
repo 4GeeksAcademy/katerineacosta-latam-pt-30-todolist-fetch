@@ -14,7 +14,7 @@ const Home = () => {
 	}, []);
 
 	const getAllTodos = async ()=>{
-		res = await fetch('https://playground.4geeks.com/todo/usrs/katy', { method:'GET' });
+		const res = await fetch('https://playground.4geeks.com/todo/users/kath', { method:'GET' });
 		const data = await res.json();
 		setstrList(data.todos)		
 	};
@@ -27,7 +27,7 @@ const Home = () => {
 			"label": todoName,
 			"is_done": false
 		});
-		const result = await fetch('https://playground.4geeks.com/todo/todos/katy', {
+		const result = await fetch('https://playground.4geeks.com/todo/todos/kath', {
 			method: 'POST',
 			body: body,
 			headers: {
@@ -60,10 +60,11 @@ const Home = () => {
 						<TodoInput onAdd={addTodo} />
 						{ strList.length > 0 && <TodoList list={strList} onRemove={removeTodo} /> }
 						{ strList.length == 0 && <p className="text-danger text-center">No hay tareas, por favor agrega alguna</p> }
+						<div>
+							<button type="button" className="btn btn-primary" onClick={clearTodos} >Limpiar</button>
+						</div>
 					</div>
-					<div>
-						<button type="button" className="btn btn-primary" onClick={clearTodos} >Limpiar</button>
-					</div>
+					
 				</div>
 			</div>
 		</>

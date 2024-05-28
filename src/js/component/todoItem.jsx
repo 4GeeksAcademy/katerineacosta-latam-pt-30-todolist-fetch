@@ -8,7 +8,8 @@ function TodoItem(props){
   }
   
     return(
-        <li onMouseEnter={() => setIcon(true)} onMouseLeave={() => setIcon(false)} className="d-flex justify-content-between list-group-item p-3">{props.str} 
+        <li onMouseEnter={() => setIcon(true)} onMouseLeave={() => setIcon(false)} className="d-flex justify-content-between list-group-item p-3">
+          {props.todo.label} 
           {icon && <i className="icon__x" onClick={onRemoveClick}>X</i>}
         </li>
     )
