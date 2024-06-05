@@ -12,7 +12,8 @@ function TodoInput(props){
     }
 
     return(
-       <input className="list__input p-3" type="text" placeholder="What needs to be done?" onChange={event => setInputValue(event.target.value)} value={inputValue} onKeyDown={handleKeyDown} />
+       <input className="list__input p-3" type="text" 
+       placeholder="¿Qué necesitas hacer?" onChange={event => setInputValue(event.target.value)} value={inputValue} onKeyDown={handleKeyDown} />
     )
 }
 

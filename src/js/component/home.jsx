@@ -7,20 +7,19 @@ import { useState } from "react";
 
 //create your first component
 const Home = () => { 
-	const [strList, setstrList] = useState([]);
+	const [strList, setStrList] = useState([]);
 
 	const addTodo = (todoName) => {
 		console.log("home");
 		if(todoName.trim() === ""){
 			return;
 		}
-		setstrList([...strList, todoName])
+		setStrList([...strList, todoName])
 		console.log(strList)
 	} 
 
 	const removeTodo = (index) => {
-		strList.splice(index, 1);
-		setstrList([...strList]);
+		setStrList(strList.filter((v, i)=> i != index) );
     }
 
 	return (
@@ -32,7 +31,8 @@ const Home = () => {
 				<div className="row justify-content-center">
 					<div className="col-4 d-flex flex-column">
 						<TodoInput onAdd={addTodo} />
-						<TodoList list={strList} onRemove={removeTodo} />
+						{ strList.length > 0 && <TodoList list={strList} onRemove={removeTodo} /> }
+						{ strList.length == 0 && <p className="text-danger text-center">No hay tareas, por favor agrega alguna</p> }
 					</div>
 				</div>
 			</div>
