@@ -29,7 +29,7 @@ const Home = () => {
 					console.log('usuario no existe')
 					// user does not exists
 					await createUser();
-					setstrList([]);
+					setStrList([]);
 					return;
 				}else{
 					console.log("Error obteniendo To Do's")
@@ -37,10 +37,10 @@ const Home = () => {
 				}
 			}
 
-			setstrList(data.todos);	
+			setStrList(data.todos);	
 		}catch(exception){
 			console.log("Exception Catched 'getAllTodos'");
-			setstrList([]);
+			setStrList([]);
 			console.log({exception, data});
 			setError(data?.detail || exception || 'Ocurrio un error');
 		}
@@ -85,7 +85,6 @@ const Home = () => {
 				console.log('Error borrando ToDo: '+ todoId )
 				throw 'Error borrando ToDo: '+ todoId;
 			}
-			getAllTodos();
 		}catch(exception){
 			console.log("Exception Catched 'Delete Todo'", );
 			setError(exception || 'Error borrando ToDo');
@@ -103,7 +102,7 @@ const Home = () => {
 			setError(exception || 'Error borrando todos los ToDo');
 		}
 
-		getAllTodos();
+		await getAllTodos();
 	};
 
 	const createUser = async ()=>{
@@ -126,7 +125,7 @@ const Home = () => {
 				<div className="row justify-content-center">
 					<div className="col-4 d-flex flex-column">
 						<TodoInput onAdd={addTodo} />
-						{ strList.length > 0 && <TodoList list={strList} onRemove={removeTodo} /> }
+						{ strList.length > 0 && <TodoList list={strList} onRemove={async (todoId)=>{ await removeTodo(todoId); await getAllTodos()}} /> }
 						{ strList.length == 0 && <p className="text-danger text-center">No hay tareas, por favor agrega alguna</p> }
 						<div className="d-grid">
 							<button type="button" className="btn list__btn mt-2 " onClick={clearTodos} >Borrar todo</button>
