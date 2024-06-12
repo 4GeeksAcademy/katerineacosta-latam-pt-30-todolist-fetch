@@ -95,14 +95,20 @@ const Home = () => {
 
 	const clearTodos = async () => {
 		try{
-			for(let el of strList)
-				await removeTodo(el.id);
+			const res = await fetch(`https://playground.4geeks.com/todo/users/${user}`, {method:'DELETE'});
+
+			if(!res.ok){
+				console.log('Error borrando todos los ToDos')
+				throw 'Error borrando todos los ToDo';
+			}
+
+			await getAllTodos();
+			
 		}catch(exception){
 			console.log("Exception Catched 'Clear ToDos'", );
 			setError(exception || 'Error borrando todos los ToDo');
 		}
 
-		await getAllTodos();
 	};
 
 	const createUser = async ()=>{
